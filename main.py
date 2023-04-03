@@ -104,10 +104,15 @@ class WordSorter(SortedList):
 
 
 def format_defn(defn):
-	defn = defn.split("; ",1)[0]
-	if len(defn) >= 80:
-		defn = defn[:80] + "..."
-	return defn
+    defn = defn.split("; ", 1)[0]
+    max_line_length = 80
+    if len(defn) >= max_line_length:
+        last_space = defn[:max_line_length].rfind(" ")
+        if last_space:
+            defn = defn[:last_space] + "\n" + format_defn(defn[last_space + 1:])
+        else:
+            defn = defn[:max_line_length] + "\n" + format_defn(defn[max_line_length:])
+    return defn
 
 def gen_wiktionary_url(word):
 	base_url = "https://en.wiktionary.org/wiki/"
