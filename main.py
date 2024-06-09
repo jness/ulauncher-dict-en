@@ -9,7 +9,8 @@ from ulauncher.api.client.EventListener import EventListener
 from ulauncher.api.shared.event import KeywordQueryEvent
 from ulauncher.api.shared.item.ExtensionResultItem import ExtensionResultItem
 from ulauncher.api.shared.action.RenderResultListAction import RenderResultListAction
-from ulauncher.api.shared.action.OpenUrlAction import OpenUrlAction
+from ulauncher.api.shared.action.CopyToClipboardAction import CopyToClipboardAction
+
 
 FILE_PATH = os.path.dirname(sys.argv[0])
 
@@ -66,7 +67,7 @@ class KeywordQueryEventListener(EventListener):
 						icon = os.path.join(FILE_PATH, "images/icon.png"),
 						name = name,
 						description = format_defn(entry.defn),
-						on_enter = OpenUrlAction(gen_wiktionary_url(entry.word)),
+						on_enter = CopyToClipboardAction(entry.word),
 					)
 				)
 		return RenderResultListAction(items)
